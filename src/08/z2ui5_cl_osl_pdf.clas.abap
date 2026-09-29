@@ -22,8 +22,8 @@
 "! Notes: zcl_pdf is Standard ABAP, not ABAP Cloud (SSFC_BASE64_DECODE,
 "! cl_abap_conv_out_ce, cl_http_utility here). It writes WinAnsi text
 "! (code page 1100): a character outside Latin-1 stops the generation with a
-"! message. set_font takes the PostScript family and style names
-"! (Helvetica/Bold, Times/Roman, ...), not its CONST_FONT_* constants.
+"! message. set_font takes the names add_fonts( ) registers, i.e. the
+"! CONST_FONT_* and CONST_FONT_STYLE_* constants of zcl_pdf.
 "! The viewer frames a data: URI, which the default abap2UI5 CSP allows
 "! (default-src data:) - isTrustedSource, because the bytes come from this
 "! class. The app reads and writes nothing in the system.
@@ -1059,23 +1059,22 @@ CLASS z2ui5_cl_osl_pdf IMPLEMENTATION.
 
   METHOD pdf_font.
 
-    " set_font looks the font up by its PostScript family and style name
-    DATA(family) = SWITCH string( font
-        WHEN `TIMES`   THEN `Times`
-        WHEN `COURIER` THEN `Courier`
-        ELSE `Helvetica` ).
-    DATA(slant) = COND string( WHEN font = `TIMES` THEN `Italic` ELSE `Oblique` ).
+    " set_font looks the font up by the names add_fonts( ) registered -
+    " the const_font_* and const_font_style_* constants of zcl_pdf
     DATA(effective) = style.
     IF style = `BOLD` AND font_style CS `ITALIC`.
       effective = `BOLDITALIC`.
     ENDIF.
 
-    doc->set_font( iv_font_name  = family
+    doc->set_font( iv_font_name  = SWITCH #( font
+                       WHEN `TIMES`   THEN zcl_pdf=>const_font_times
+                       WHEN `COURIER` THEN zcl_pdf=>const_font_courier
+                       ELSE zcl_pdf=>const_font_helvetica )
                    iv_font_style = SWITCH #( effective
-                       WHEN `BOLD`       THEN `Bold`
-                       WHEN `ITALIC`     THEN slant
-                       WHEN `BOLDITALIC` THEN `Bold` && slant
-                       ELSE COND #( WHEN font = `TIMES` THEN `Roman` ) ) ).
+                       WHEN `BOLD`       THEN zcl_pdf=>const_font_style_bold
+                       WHEN `ITALIC`     THEN zcl_pdf=>const_font_style_italic
+                       WHEN `BOLDITALIC` THEN zcl_pdf=>const_font_style_bold_italic
+                       ELSE zcl_pdf=>const_font_style_normal ) ).
 
   ENDMETHOD.
 
