@@ -17,6 +17,56 @@
         "url": "https://github.com/zenrosadira/abap-tbox-stats",
         "folder": "/tbox-stats",
         "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/fidley/JSON2ABAPType",
+        "folder": "/json2abaptype",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/hhelibeb/abap-data-validator",
+        "folder": "/data-validator",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/abap2xlsx/abap2xlsx",
+        "folder": "/abap2xlsx",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/cesar-sap/abap_fm_json",
+        "folder": "/abap_fm_json",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/abap-openapi/abap-openapi",
+        "folder": "/abap-openapi",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/abapPM/ABAP-Diff3",
+        "folder": "/diff3",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/hhelibeb/abap-fm-logger",
+        "folder": "/abap-fm-logger",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/beraadim/zcl_pdf",
+        "folder": "/zcl_pdf",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/se38/abapFaker",
+        "folder": "/abapFaker",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/AntonSikidin/zcl_docx",
+        "folder": "/zcl_docx",
+        "files": "/src/**/*.*"
       }
     ],
     "rename": {
