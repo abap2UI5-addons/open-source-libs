@@ -1,0 +1,30 @@
+{
+  "name": "abap2ui5-open-source-libs",
+  "private": true,
+  "version": "1.0.0",
+  "description": "abap2UI5 sample apps for open-source ABAP libraries - every library shown with a UI.",
+  "scripts": {
+    "rename": "abaplint .github/abaplint/rename.json --rename",
+    "lint": "abaplint ./abaplint.jsonc",
+    "check:abap2ui5": "abap2ui5lint",
+    "check": "npm run lint && npm run check:abap2ui5 && npm run rename",
+    "test": "npm run check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abap2UI5-addons/open-source-libs.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abap2UI5-addons/open-source-libs/issues"
+  },
+  "homepage": "https://github.com/abap2UI5-addons/open-source-libs#readme",
+  "devDependencies": {
+    "@abap2ui5/linter": "^0.8.3",
+    "@abap2ui5/linter-render": "^0.8.3",
+    "@abaplint/cli": "^2.120.60"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

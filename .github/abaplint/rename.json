@@ -1,0 +1,62 @@
+{
+    "global": {
+      "files": "/../../src/**/*.*"
+    },
+    "dependencies": [
+      {
+        "url": "https://github.com/abapedia/steampunk-2305-api-intersect-702",
+        "folder": "/deps",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/abap2UI5/abap2UI5",
+        "folder": "/abap2UI5",
+        "files": "/src/**/*.*"
+      },
+      {
+        "url": "https://github.com/zenrosadira/abap-tbox-stats",
+        "folder": "/tbox-stats",
+        "files": "/src/**/*.*"
+      }
+    ],
+    "rename": {
+      "output": "output",
+      // only the samples move into the new namespace: the libraries they show
+      // (ztbox_*, ...) are installed on their own and keep their names
+      "patterns": [
+        {
+          "type": "CLAS|INTF",
+          "oldName": "z2ui5_(.*)",
+          "newName": "zabap2ui5_$1"
+        }
+      ]
+    },
+    "syntax": {
+      "version": "v750",
+      // resolved like abaplint.jsonc (abap-standard): Z and Y objects and local
+      // names must resolve, which covers every object the rename touches, while
+      // the non-released standard types of the libraries stay void
+      "errorNamespace": "^(Z|Y|LCL_|TY_|LIF_)"
+    },
+    "rules": {
+      "allowed_object_types": {
+        "allowed": [
+          "CLAS",
+          "DEVC",
+          "INTF"
+        ]
+      },
+      "allowed_object_naming": true,
+      "begin_end_names": true,
+      "check_ddic": true,
+      "check_include": true,
+      "check_syntax": true,
+      "global_class": true,
+      "implement_methods": true,
+      "method_implemented_twice": true,
+      "parser_error": true,
+      "superclass_final": true,
+      "unknown_types": true,
+      "xml_consistency": true
+    }
+  }

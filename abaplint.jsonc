@@ -1,0 +1,49 @@
+{
+  "global": {
+    "files": "/src/**/*.*"
+  },
+  "dependencies": [
+    {
+      "url": "https://github.com/abapedia/steampunk-2305-api-intersect-702",
+      "folder": "/deps",
+      "files": "/src/**/*.*"
+    },
+    {
+      "url": "https://github.com/abap2UI5/abap2UI5",
+      "folder": "/abap2UI5",
+      "files": "/src/**/*.*"
+    },
+    // the libraries the samples show, one entry per package in src/
+    {
+      "url": "https://github.com/zenrosadira/abap-tbox-stats",
+      "folder": "/tbox-stats",
+      "files": "/src/**/*.*"
+    }
+  ],
+  "syntax": {
+    "version": "v750",
+    // Z and Y objects and local names must resolve. The standard types the
+    // libraries use that are no released API and so in no dependency stub
+    // (tbox-stats: the data element NAME_FELD, IF_FSBP_CONST_RANGE) stay void
+    "errorNamespace": "^(Z|Y|LCL_|TY_|LIF_)"
+  },
+  "rules": {
+    "downport": true,
+    "begin_end_names": true,
+    "check_ddic": true,
+    "check_include": true,
+    "check_syntax": true,
+    "global_class": true,
+    "definitions_top": false,
+    "implement_methods": true,
+    "method_implemented_twice": true,
+    "parser_error": true,
+    "superclass_final": true,
+    "unknown_types": true,
+    // the abapGit round trip: a trailing blank or a sidecar without its BOM
+    // comes back different on every pull
+    "whitespace_end": true,
+    "xml_bom": true,
+    "xml_consistency": true
+  }
+}
