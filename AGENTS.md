@@ -18,6 +18,16 @@ documentation must be in English.
 |---|---|
 | `src/` | Root package, no objects of its own |
 | `src/01/` | [abap-tbox-stats](https://github.com/zenrosadira/abap-tbox-stats) — `z2ui5_cl_osl_tbox_stats`, statistics and random distributions with `sap.viz` charts |
+| `src/02/` | [abap2xlsx](https://github.com/abap2xlsx/abap2xlsx) — `z2ui5_cl_osl_abap2xlsx` |
+| `src/03/` | [abap_fm_json](https://github.com/cesar-sap/abap_fm_json) — `z2ui5_cl_osl_fm_json` (whitelisted function modules only) |
+| `src/04/` | [abap-openapi](https://github.com/abap-openapi/abap-openapi) — `z2ui5_cl_osl_openapi` |
+| `src/05/` | [ABAP Diff3](https://github.com/abapPM/ABAP-Diff3) — `z2ui5_cl_osl_diff3` |
+| `src/06/` | [JSON2ABAPType](https://github.com/fidley/JSON2ABAPType) — `z2ui5_cl_osl_json2type` |
+| `src/07/` | [abap-fm-logger](https://github.com/hhelibeb/abap-fm-logger) — `z2ui5_cl_osl_fm_logger` (reads `ZAFL_LOG`) |
+| `src/08/` | [zcl_pdf](https://github.com/beraadim/zcl_pdf) — `z2ui5_cl_osl_pdf` |
+| `src/09/` | [zcl_docx](https://github.com/AntonSikidin/zcl_docx) — `z2ui5_cl_osl_docx` |
+| `src/10/` | [abapFaker](https://github.com/se38/abapFaker) — `z2ui5_cl_osl_faker` |
+| `src/11/` | [abap-data-validator](https://github.com/hhelibeb/abap-data-validator) — `z2ui5_cl_osl_validator` |
 
 ## The Library Is a Dependency, Never a Copy
 
@@ -48,7 +58,7 @@ it: the rename check moves only the samples (`z2ui5_*`).
 Installed alongside via abapGit; declared in the abaplint configs:
 
 * [abap2UI5](https://github.com/abap2UI5/abap2UI5)
-* the library of each sample — [abap-tbox-stats](https://github.com/zenrosadira/abap-tbox-stats) (`src/01`)
+* the library of each sample — see the package table above and the README
 
 ## Coding Style
 
@@ -76,12 +86,12 @@ as CI, and all of them must pass. CI:
 * `build-rename` — manual workflow that pushes a namespace-renamed branch
   `rename_<name>` for a parallel install
 
-There is no ABAP Cloud gate yet: tbox-stats, the only library so far, is
-Standard ABAP (it uses `NAME_FELD` and `IF_FSBP_CONST_RANGE`, neither released
+There is no ABAP Cloud gate yet: most libraries here are Standard ABAP only
+(tbox-stats, for example, uses `NAME_FELD` and `IF_FSBP_CONST_RANGE`, neither released
 for ABAP Cloud). Add `.github/abaplint/abap_cloud.jsonc` and an `abap-cloud`
 workflow (as in [sql-console](https://github.com/abap2UI5-addons/sql-console))
-with the first sample whose library runs on ABAP Cloud, and exclude the
-packages whose library does not. There is no 702 downport either — tbox-stats
-has none.
+with the first sample whose library runs on ABAP Cloud (ABAP Diff3 is the
+likeliest candidate), and exclude the packages whose library does not. There is
+no 702 downport either.
 
 All `.abap`/`.xml`/config files are LF-only (`.gitattributes` enforces it).
