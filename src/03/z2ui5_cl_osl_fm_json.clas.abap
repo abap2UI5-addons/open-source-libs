@@ -329,6 +329,14 @@ CLASS z2ui5_cl_osl_fm_json IMPLEMENTATION.
 
   METHOD on_event.
 
+    " function is bound to the Select, so a request can carry any name - a
+    " name that is not on the whitelist is refused here rather than dumping
+    " in a table expression or reading its interface below
+    IF NOT line_exists( whitelist[ name = function ] ).
+      client->message_box_display( |{ function } is not on the whitelist of this sample| ).
+      RETURN.
+    ENDIF.
+
     CASE client->get_event( ).
 
       WHEN `FUNCTION`.
