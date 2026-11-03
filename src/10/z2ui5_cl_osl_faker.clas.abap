@@ -630,7 +630,7 @@ CLASS z2ui5_cl_osl_faker IMPLEMENTATION.
   METHOD generator_try.
 
     ASSIGN t_generators[ key = key ] TO FIELD-SYMBOL(<generator>).
-    IF sy-subrc <> 0 OR <generator>-enabled = abap_false.
+    IF <generator> IS NOT ASSIGNED OR <generator>-enabled = abap_false.
       RETURN.
     ENDIF.
     TRY.

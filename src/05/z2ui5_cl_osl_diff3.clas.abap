@@ -553,7 +553,7 @@ CLASS z2ui5_cl_osl_diff3 IMPLEMENTATION.
             DATA(id) = CONV i( client->get_event_arg( ) ).
             DATA(resolution) = client->get_event_arg( 2 ).
             ASSIGN t_conflicts[ id = id ] TO FIELD-SYMBOL(<conflict>).
-            IF sy-subrc = 0.
+            IF <conflict> IS ASSIGNED.
               " a second press on the chosen resolution takes it back
               <conflict>-resolution = COND #( WHEN <conflict>-resolution <> resolution THEN resolution ).
             ENDIF.
