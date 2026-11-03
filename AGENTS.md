@@ -41,10 +41,10 @@ it: the rename check moves only the samples (`z2ui5_*`).
 1. Take the next free package, `src/NN/`, with a `package.devc.xml` whose text
    is `abap2UI5 - open-source libs - <library>`.
 2. Name the classes `z2ui5_cl_osl_<library>` (or `…_<nn>` for several apps),
-   **25 characters at most**: `build-rename` may make the namespace up to four
+   **25 characters at most**: `build-rename` may make the namespace up to five
    characters longer, and ABAP stops at 30.
-3. Add the library to the `dependencies` of `abaplint.jsonc` and
-   `.github/abaplint/rename.json`, and to the README (samples table,
+3. Add the library to the `dependencies` of `abaplint.jsonc` (the namespace
+   rename takes them from there), and to the README (samples table,
    installation, dependencies, credits).
 4. Standard types a library uses that are no released API stay void through
    the `errorNamespace`; do not add stubs for them.
@@ -81,8 +81,8 @@ as CI, and all of them must pass. CI:
   against abap2UI5 and the libraries
 * `check-abap2ui5` — the abap2UI5-linter over the app classes and their views
   (`abap2ui5lint.jsonc`), with the render gate
-* `check-rename` — namespace-rename check (`.github/abaplint/rename.json`,
-  against the 9-character placeholder `zabap2ui5`)
+* `check-rename` — namespace-rename check (`npm run rename`, `.github/scripts/rename.mjs`,
+  with the longest name allowed, 10 characters)
 * `build-rename` — manual workflow that pushes a namespace-renamed branch
   `rename_<name>` for a parallel install
 
@@ -95,3 +95,22 @@ likeliest candidate), and exclude the packages whose library does not. There is
 no 702 downport either.
 
 All `.abap`/`.xml`/config files are LF-only (`.gitattributes` enforces it).
+
+## Namespace rename
+
+`npm run rename` (CI: `check-rename`) and the manual `build-rename` workflow
+are abap2UI5's namespace rename for this addon - `.github/scripts/rename.mjs`,
+the same file in every addon that has one. Every `z2ui5_` object becomes
+`<name>_...`, for a customer name such as `ZMYUI5` or a registered namespace
+such as `/CA2UI5/` (at most 10 characters), and so does every reference to
+abap2UI5 and to the addons this one builds on: the branch `rename_<name>` runs
+on an abap2UI5 renamed with the same name by its own `build-rename`. What
+follows from it:
+
+- Every object name has at most 25 characters (a transparent table
+  11, an ICF node 10) - 30 minus what the longest new name adds.
+- No literal names a `z2ui5_` object: the rename rewrites references, never a
+  literal. Derive the name - from a typed reference, or behind the prefix of
+  the class's own name.
+- A change that spans several repositories: `RENAME_DEPS_FROM=<dir> npm run
+  rename` takes the dependencies from the clones in `<dir>`.

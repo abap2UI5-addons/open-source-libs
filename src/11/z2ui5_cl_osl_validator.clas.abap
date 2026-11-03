@@ -526,8 +526,9 @@ CLASS z2ui5_cl_osl_validator IMPLEMENTATION.
       INSERT result-row INTO TABLE error_rows.
       DATA(message) = condense( concat_lines_of( table = VALUE string_table( FOR m IN result-message ( m-text ) )
                                                  sep   = ` ` ) ).
+      UNASSIGN <row>.
       ASSIGN t_rows[ result-row ] TO <row>.
-      IF sy-subrc = 0.
+      IF <row> IS ASSIGNED.
         ASSIGN COMPONENT |{ result-fname }_ST| OF STRUCTURE <row> TO FIELD-SYMBOL(<state>).
         IF sy-subrc = 0.
           <state> = `Error`.
