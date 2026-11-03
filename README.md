@@ -17,7 +17,7 @@ PDF and Word documents, test data, validation. For ABAP developers who want to
 see and try a library on their own system before they use it - written in
 nothing but ABAP, with the library installed as a dependency, never copied.
 
-> Part of [abap2UI5-addons](https://github.com/abap2UI5-addons) - addons and apps for [abap2UI5](https://github.com/abap2UI5/abap2UI5), installed with [abapGit](https://abapgit.org).
+> Part of [abap2UI5-addons](https://github.com/abap2UI5-addons) - addons and apps for [abap2UI5](https://github.com/abap2UI5/abap2UI5), installed with [abapGit](https://abapgit.org). Documentation: [abap2ui5-addons.github.io/open-source-libs](https://abap2ui5-addons.github.io/open-source-libs/).
 
 ## Why
 
@@ -47,6 +47,7 @@ Good for:
 3. this repository (branch `main`)
 
 Library notes:
+
 * abap_fm_json brings the authorization object `Z_JSON`; users need it for the function modules they call
 * JSON2ABAPType's type generator is a local class of its report `ZJSON2ABAPTYPE` – install the whole repository
 * abap-data-validator: install the Standard ABAP release (branch `master`), not the ABAP Cloud one
@@ -113,6 +114,7 @@ with the library in the browser - what each app does is described below.
 | `src/11` | [abap-data-validator](https://github.com/hhelibeb/abap-data-validator) | `z2ui5_cl_osl_validator` | Rule-based validation of an editable table, invalid cells marked with the library's messages |
 
 ### tbox-stats – Statistics with ABAP (`src/01`)
+
 The app generates a stand-in for the flight bookings table SBOOK — 4,000 bookings with price, booking class, carrier and luggage weight, drawn with tbox-stats' own random generators — and puts tbox-stats to work on it:
 
 * **Explore a column** – mean, standard deviation, skewness, kurtosis, the Jarque–Bera normality test, outliers and a correlation; a histogram with its normal fit and the empirical CDF against the normal CDF; for all bookings or one booking class
@@ -126,12 +128,15 @@ Every number is computed in ABAP by `ztbox_cl_stats`; the frontend only draws th
 <img width="700" alt="Distribution lab: 10,000 normal draws against the theory" src="img/tbox-stats/distribution-lab.png">
 
 ### abap2xlsx – Excel Workbench (`src/02`)
+
 * **Export** – 50 generated flight bookings; every option is one abap2xlsx call: `bind_table` with a table style and a totals row (or a plain range with an autofilter), `freeze_panes`, a data bar and a cell-is rule on the amount, a dropdown validation and a summary sheet with a bar chart. `zcl_excel_writer_2007` writes the file, the browser downloads it
 * **The code** – a panel shows the exact abap2xlsx calls the chosen options produce
 * **Import** – upload an .xlsx (or read back the exported one); `zcl_excel_reader_2007` loads it, pick a sheet, see its cells, and watch `zcl_excel_common=>excel_string_to_date` turn the serial numbers of the detected date column into dates
 
 ### abap_fm_json – Function Modules as JSON (`src/03`)
+
 The app calls function modules the way the library's ICF handler does, without the HTTP round trip — every step is one of `zcl_json_handler`'s public methods:
+
 * **Interface** – pick a function module and see its parameters as `build_params( )` reads them
 * **JSON input** – edit the request, start from an example or a template the library serializes from the interface, choose the deserializer
 * **Call and result** – the result, with any exception raised, as JSON, XML, YAML or Perl, with the handler's `upcase`, `camelcase` and `show_import_params` options
@@ -139,41 +144,49 @@ The app calls function modules the way the library's ICF handler does, without t
 Only a hard-coded whitelist of harmless standard function modules is offered (`STFC_CONNECTION`, `STFC_STRUCTURE`, `RFC_SYSTEM_INFO`, `DATE_GET_WEEK`), and every call first passes the library's own authority check on `Z_JSON`.
 
 ### abap-openapi – OpenAPI to ABAP (`src/04`)
+
 * Paste or upload an OpenAPI 3 JSON document (a small petstore is prefilled) and run the library's generator (`zcl_oapi_generator=>generate_v2`)
 * The generated interface, HTTP client, ICF handler and ICF implementation in read-only code editors, each downloadable
 * The operations as the library's parser reads them – method, path, operationId, ABAP method name, parameters, request body, responses
 
 ### ABAP Diff3 – Diff, Patch and Three-Way Merge (`src/05`)
+
 * **Diff** – two texts compared line by line with `diff_comm( )`, side by side, every row marked unchanged, changed, deleted or inserted, with the LCS length and the hunks in diff(1) notation
 * **Three-way merge** – base, mine and theirs merged with `diff3_merge( )`; clean changes are taken over, each conflict is resolved with *take mine*, *take theirs* or *both*, and the library's own conflict markers are shown in all three styles
 * **Patch** – the diff as a diff(1)-style patch, inverted or stripped, applied with `patch( )` and checked against the expected text
 
 ### JSON2ABAPType – ABAP Types from JSON (`src/06`)
+
 * Paste JSON and press Generate – `zui2_json=>generate( )` builds the data, the library's type generator turns it into ABAP `TYPES`, shown in a code editor
 * The library's naming modes, an editable JSON-name to ABAP-component mapping and the optional pretty printer
 * A table of the structure the generator detected – structures, table types and components
 
 ### abap-fm-logger – Function Module Logs in the Browser (`src/07`)
+
 * A browser version of the log report `ZAFL_VIEWER`: search the logged calls by function module, date, status, message and the custom fields
 * Each call opens with its import, export, changing and tables parameters as indented JSON
 * An overview per function module – calls, share, errors, average runtime, last call
 * Optional reprocessing through `zcl_afl_utilities=>re_process`: off by default, with a confirmation and the library's own authority check
 
 ### zcl_pdf – PDF without Forms (`src/08`)
+
 * A letter or invoice typed into a form becomes a PDF written in ABAP by one stand-alone class – no Adobe Document Server, SmartForm or spool
 * Shown in a `sap.m.PDFViewer` and downloadable, regenerated on every option change
 * Every library feature as an option: fonts and styles, font size, largest subject that fits, body shrunk into its box, text box alignment, rectangles, page formats, orientation, extra pages and page breaks – plus the measurements behind the layout
 
 ### zcl_docx – Word Documents from ABAP (`src/09`)
+
 * A delivery note or invoice form that `zcl_docx3=>get_document` fills into a Word template: fields, an address structure, a repeated table row, repeated paragraphs, checkboxes and read-only protection
 * No template object needed – the app builds the template in ABAP; download it, change it in Word and upload it again, or upload your own
 * A tag check against the template, and a text preview of the generated document
 
 ### abapFaker – Test Data Generator (`src/10`)
+
 * Choose a locale, the number of rows and which of the library's 37 generators to include – each with its call, a live example and a button to try it
 * The generated records as a table whose columns follow the selection, and a CSV download
 
 ### abap-data-validator – Validating Internal Tables (`src/11`)
+
 * An editable table of demo contacts – e-mail, date, time, URL, phone, IMEI, GUID, number, JSON – some of them invalid on purpose
 * A rules table: per column required, one of the library's type checks, a custom regex or a reference data element
 * Validate runs `zcl_adata_validator->validate( )` over the table – every invalid cell turns red with the library's message
@@ -181,6 +194,7 @@ Only a hard-coded whitelist of harmless standard function modules is offered (`S
 ## Security
 
 Most samples read nothing from your system – they generate their data or work on what you type or upload. Three touch the system, each limited on purpose:
+
 * **abap_fm_json** (`src/03`) calls function modules – only a hard-coded whitelist of harmless ones, after the library's `Z_JSON` authority check
 * **abap-fm-logger** (`src/07`) reads the log table `ZAFL_LOG`, which holds whatever the logged function modules received and returned; reprocessing is off by default and runs the function module again
 * **abap-data-validator** (`src/11`) leaves out the library's HTML check, which would send the cell content to validator.w3.org

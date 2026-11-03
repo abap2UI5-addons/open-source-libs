@@ -8,7 +8,9 @@
     "lint": "abaplint ./abaplint.jsonc",
     "check:abap2ui5": "abap2ui5lint",
     "check": "npm run lint && npm run check:abap2ui5 && npm run rename",
-    "test": "npm run check"
+    "test": "npm run check",
+    "site": "npm run build --prefix site",
+    "site:dev": "npm run dev --prefix site"
   },
   "repository": {
     "type": "git",
