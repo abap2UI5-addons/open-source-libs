@@ -17,7 +17,7 @@ PDF and Word documents, test data, validation. For ABAP developers who want to
 see and try a library on their own system before they use it - written in
 nothing but ABAP, with the library installed as a dependency, never copied.
 
-> Part of [abap2UI5-addons](https://github.com/abap2UI5-addons) - addons and apps for [abap2UI5](https://github.com/abap2UI5/abap2UI5), installed with [abapGit](https://abapgit.org).
+> Part of [abap2UI5-addons](https://github.com/abap2UI5-addons) - addons and apps for [abap2UI5](https://github.com/abap2UI5/abap2UI5), installed with [abapGit](https://abapgit.org). Documentation: [abap2ui5-addons.github.io/open-source-libs](https://abap2ui5-addons.github.io/open-source-libs/).
 
 ## Why
 
