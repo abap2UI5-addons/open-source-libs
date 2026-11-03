@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "abap2UI5 sample apps for open-source ABAP libraries - every library shown with a UI.",
   "scripts": {
-    "rename": "abaplint .github/abaplint/rename.json --rename",
+    "rename": "node .github/scripts/rename.mjs",
     "lint": "abaplint ./abaplint.jsonc",
     "check:abap2ui5": "abap2ui5lint",
     "check": "npm run lint && npm run check:abap2ui5 && npm run rename",
